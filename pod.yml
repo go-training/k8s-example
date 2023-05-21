@@ -16,3 +16,21 @@ spec:
       limits:
         memory: "128Mi"
         cpu: "500m"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+spec:
+  containers:
+  - name: ubuntu
+    image: ubuntu:20.04
+    args: [bash, -c, 'for ((i = 0; ; i++)); do echo "$i: $(date)"; sleep 100; done']
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
