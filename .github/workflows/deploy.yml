@@ -1,0 +1,20 @@
+name: deploy to k8s
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Set the Kubernetes context
+        uses: azure/login@v1
+        with:
+          method: service-account
+          k8s-url: ${{ secrets.KUBERNETES_URL }}
+          k8s-secret: ${{ secrets.KUBERNETES_SECRET }}
